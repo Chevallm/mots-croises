@@ -7,3 +7,4 @@ export async function importLevel(filename) {
   const words = array.slice(1 + gridHeight);
   return { grid, words };
 }
+

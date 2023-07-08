@@ -21,3 +21,15 @@ export function createWordList(words) {
   }
   return definitionList;
 }
+
+export function initUI(grid, words) {
+  const appElement = document.querySelector('#app');
+  const listElement = appElement.querySelector('#list');
+  const gridElement = appElement.querySelector('#grid');
+
+  const tableElement = createGrid(grid);
+  const wordListElement = createWordList(words);
+
+  listElement.appendChild(wordListElement);
+  gridElement.appendChild(tableElement);
+}
