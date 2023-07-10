@@ -8,5 +8,5 @@ console.clear();
 const { grid, words } = await importLevel('hard');
 initUI(grid, words);
 
-const { wordsFound, time } = resolve(grid, words);
-setTimer(time);
+const results = resolve(grid, words);
+console.log(results);
