@@ -33,3 +33,20 @@ export function initUI(grid, words) {
   listElement.appendChild(wordListElement);
   gridElement.appendChild(tableElement);
 }
+
+export function markWordsFound(wordsFound) {
+  wordsFound.forEach((word) => {
+    document
+      .querySelector('#list')
+      .querySelectorAll('dd')
+      .forEach((td) => {
+        if (td.textContent.toLocaleLowerCase() === word.toLowerCase()) {
+          td.classList.add('found');
+        }
+      });
+  });
+}
+
+export function setTimer(time) {
+  document.querySelector('#time').textContent = `resolved in ${time} ms`;
+}

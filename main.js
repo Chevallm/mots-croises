@@ -1,9 +1,12 @@
-import { initUI } from './ui-manager';
+import { initUI, markWordsFound, setTimer } from './ui-manager';
 import { importLevel } from './importLevel';
 import './style.css';
 import { resolve } from './game-solver';
 
-const { grid, words } = await importLevel('example1');
+console.clear();
+
+const { grid, words } = await importLevel('hard');
 initUI(grid, words);
 
-resolve(grid, words);
+const { wordsFound, time } = resolve(grid, words);
+setTimer(time);

@@ -1,8 +1,14 @@
+import { markWordsFound } from './ui-manager';
+
 export function resolve(grid, words) {
-  loopOnGrid(grid, words);
+  const timerStart = new Date().getTime();
+  const wordsFound = loopOnGrid(grid, words);
+  const timerEnd = new Date().getTime() - timerStart;
+  return { wordsFound, time: timerEnd };
 }
 
 function loopOnGrid(grid, words) {
+  const wordsFound = [];
   for (let line in grid) {
     let row = grid[line];
     for (let col in row) {
@@ -24,7 +30,6 @@ function loopOnGrid(grid, words) {
         ];
         let lettersFound = 1;
         for (let direction of directions) {
-          console.log(direction);
           const wordFound = findWord(
             grid,
             word,
@@ -33,19 +38,33 @@ function loopOnGrid(grid, words) {
             direction
           );
           if (wordFound) {
+            wordsFound.push(word);
+            markWordsFound([word]);
+            if (wordsFound.length === words.length) {
+              return wordsFound;
+            }
             continue;
           }
         }
       });
     }
   }
+  return wordsFound;
 }
 
 function findWord(grid, word, lettersFound, position, direction) {
+  if (word.length === lettersFound) {
+    return true;
+  }
   const nextPos = nextPosition(position, direction);
+  const charToFind = word[lettersFound];
   try {
     let charAtNextPosition = grid[nextPos[0]][nextPos[1]];
-    console.log(charAtNextPosition);
+    if (charAtNextPosition === charToFind) {
+      return findWord(grid, word, ++lettersFound, nextPos, direction);
+    } else {
+      return false;
+    }
   } catch (error) {}
 }
 
