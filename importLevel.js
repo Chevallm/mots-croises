@@ -1,5 +1,5 @@
 export async function importLevel(filename) {
-  const file = await fetch(filename);
+  const file = await fetch(`levels\\${filename}.txt`);
   const text = await file.text();
   const array = text.split('\r\n');
   const [gridWidth, gridHeight, nbOfWords] = array[0].split(',').map(Number);
@@ -7,4 +7,3 @@ export async function importLevel(filename) {
   const words = array.slice(1 + gridHeight);
   return { grid, words };
 }
-
